@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -28,8 +29,17 @@ class LoginController extends Controller
     protected $redirectTo = '/home';
 
     public function redirectTo(){
-		
-		
+//		$user = Auth::user();
+//		
+//		if($user->hasRole('admin')){
+//			$url = 'admin/home';
+//		}else if($user->hasRole('user')){
+//			$url = 'user/home';
+//		}else{
+//			throw new Exception("Undefined User");
+//		}
+//		
+//		return view($url);
 	}
 	
     public function __construct()

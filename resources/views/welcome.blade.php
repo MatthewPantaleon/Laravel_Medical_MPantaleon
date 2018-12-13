@@ -85,7 +85,7 @@
                 </div>
 
                 <div class="links">
-                    <a href=" route() ">Doctors</a>
+                    <a href="https://laravel.com/docs">Doctors</a>
                     <a href="https://laravel.com/docs">Patients</a>
                     <a href="https://laravel.com/docs">Visits</a>
                 </div>

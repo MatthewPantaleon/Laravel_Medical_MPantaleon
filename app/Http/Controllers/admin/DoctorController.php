@@ -7,20 +7,16 @@ use Illuminate\Http\Request;
 
 class DoctorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function index()
     {
-        return 'this is the admin doctors';
+        return view('admin/home');
     }
 
     
     public function create()
     {
-        //
+        return 'Create a new doctor';
     }
 
     

@@ -20,5 +20,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('admin/doctors', 'admin\DoctorController', array("as" => "admin"));
-Route::resource('user/doctors', 'user\DoctorController', array("as" => "user"));
+//Route::resource('user/doctors', 'user\DoctorController', array("as" => "user"));
+
+Route::get('/doctors', 'user\DoctorController@index')->name('user.doctors.index');
+Route::get('/doctors/{doctor}', 'user\DoctorController@show')->name('user.doctors.show');
 
