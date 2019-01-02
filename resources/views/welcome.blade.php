@@ -85,9 +85,9 @@
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Doctors</a>
-                    <a href="https://laravel.com/docs">Patients</a>
-                    <a href="https://laravel.com/docs">Visits</a>
+                    <a href="{{ route('admin.doctors.index') }}">Doctors</a>
+                    <a href="{{ route('admin.patients.index') }}">Patients</a>
+                    <a href="{{ route('admin.visits.index') }}">Visits</a>
                 </div>
             </div>
         </div>

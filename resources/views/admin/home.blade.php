@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Admin</div>
+                <div class="card-header">Admin Dashboard</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -14,7 +14,9 @@
                         </div>
                     @endif
 
-                    <a href="{{ route('admin.doctors.index') }}">Doctors</a>
+					<a href="{{ route('admin.doctors.index') }}" class="text-white"><button class="btn btn-primary">Doctors</button></a>
+					<a href="{{ route('admin.patients.index') }}" class="text-white"><button class="btn btn-primary">Patients</button></a>
+					<a href="{{ route('admin.visits.index') }}" class="text-white"><button class="btn btn-primary">Visits</button></a>
                 </div>
             </div>
         </div>
