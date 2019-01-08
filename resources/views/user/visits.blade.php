@@ -13,6 +13,8 @@
 						<div class="col">
 							<a href="{{ route('user.visits.create') }}" class="float-right"><button class="btn btn-primary">Add Visit</button></a>
 						</div>
+						
+						
 						<div class="col">
 							<a href="{{ route('user.home') }}" class="float-right"><button class="btn btn-primary">Back To Home</button></a>
 						</div>
@@ -50,6 +52,8 @@
 								<td>{{ $v->time }}</td>
 								<td>{{ $v->duration }}</td>
 								<td>{{ $v->price }}</td>
+								<td><a href="{{ route('user.visits.edit', $v->id) }}" class="float-right"><button class="btn btn-secondary">Edit Visit</button></a></td>
+								<td><a href="{{ route('user.visits.destroy', $v->id) }}" class="float-right"><button class="btn btn-danger">Delete Visit</button></a></td>
                    			 </tr>
                    			@endforeach
 						</tbody>
