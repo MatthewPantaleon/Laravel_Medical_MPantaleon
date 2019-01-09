@@ -25,13 +25,30 @@ class DoctorController extends Controller
     
     public function create()
     {
-        return 'Create a new doctor';
+		return view('admin/doctors/create');
     }
 
     
     public function store(Request $request)
     {
-        //
+        $request->validate([
+			'name' => 'required',
+			'email' => 'required|email',
+			'postal_address' => 'required|max:6|min:6',
+			'phone_number' => 'required|numeric|min:11',
+			'start_date' => 'required|date',
+		]);
+		
+		$doctor = new Doctor();
+		$doctor->name = $request->input('name');
+		$doctor->email = $request->input('email');
+		$doctor->postal_address = $request->input('postal_address');
+		$doctor->phone_number = $request->input('phone_number');
+		$doctor->start_date = $request->input('start_date');
+		
+		$doctor->save();
+		
+		return redirect()->route('admin.doctors.index');
     }
 
     
@@ -48,18 +65,42 @@ class DoctorController extends Controller
     
     public function edit($id)
     {
-        echo $id;
+		$doctor = Doctor::findOrFail($id);
+		
+		
+        return view('admin/doctors/edit')->with('doctor', $doctor);
     }
 
     
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+			'name' => 'required',
+			'email' => 'required|email',
+			'postal_address' => 'required|max:6|min:6',
+			'phone_number' => 'required|numeric|min:11',
+			'start_date' => 'required|date',
+		]);
+		
+		$doctor = Doctor::findOrFail($id);
+		
+		$doctor->name = $request->input('name');
+		$doctor->email = $request->input('email');
+		$doctor->postal_address = $request->input('postal_address');
+		$doctor->phone_number = $request->input('phone_number');
+		$doctor->start_date = $request->input('start_date');
+		
+		$doctor->save();
+		
+		return redirect()->route('admin.doctors.index');
     }
 
     
     public function destroy($id)
     {
-        echo $id;
+        $doctor = Doctor::findOrFail($id);
+		$doctor->delete();
+		
+		return redirect()->route('admin.doctors.index');
     }
 }

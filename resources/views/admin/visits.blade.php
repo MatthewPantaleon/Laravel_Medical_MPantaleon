@@ -53,11 +53,15 @@
 								<td>€{{ $v->price }}</td>
 								
 								<td>
-									<a href="{{ route('admin.visits.edit', $v->id) }}"><button type="submit" class="btn btn-info float-right">Edit</button></a>
+									<a href="{{ route('admin.visits.edit', $v->id) }}"><button type="submit" class="btn btn-secondary float-right">Edit</button></a>
 								</td>
 								<td>
-									<a href="{{ route('admin.visits.destroy', $v->id) }}"><button type="button" class="btn btn-danger float-right">Delete</button></a>
- 
+									<form method="post" action="{{ route('admin.visits.destroy', $v->id) }}">
+										<input type="hidden" name="_method" value="DELETE">
+										<input type="hidden" name="_token" value="{{ csrf_token() }}">
+										
+									<a href="#" class="float-right"><button class="btn btn-danger">Delete Visit</button></a>
+									</form>
                   			 	</td>
                    			 </tr>
                    			@endforeach

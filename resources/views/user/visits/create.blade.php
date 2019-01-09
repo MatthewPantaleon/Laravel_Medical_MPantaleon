@@ -5,7 +5,19 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header"><h3>Add Visit</h3></div>
+                <div class="card-header">
+					<div class="row">
+						<div class="col">
+							<h3>User Add Visit</h3>
+						</div>
+						
+						
+						<div class="col">
+							<a href="{{ route('user.visits.index') }}" class="float-right"><button class="btn btn-primary">Back To Visits</button></a>
+						</div>
+					</div>
+					
+				</div>
 
 				
 				

@@ -9,12 +9,12 @@
 					
 					<div class="row">
 						<div class="col">
-							<h3>User Edit Visit</h3>
+							<h3>Admin Edit Visit</h3>
 						</div>
 						
 						
 						<div class="col">
-							<a href="{{ route('user.visits.index') }}" class="float-right"><button class="btn btn-primary">Back To Visits</button></a>
+							<a href="{{ route('admin.visits.index') }}" class="float-right"><button class="btn btn-primary">Back To Visits</button></a>
 						</div>
 					</div>
 				
@@ -23,7 +23,7 @@
 
 				
                 <div class="card-body">
-					<form method="POST" action="{{ route('user.visits.update', $visit->id) }}">
+					<form method="POST" action="{{ route('admin.visits.update', $visit->id) }}">
 						<input type="hidden" name="_method" value="PUT">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <table>
