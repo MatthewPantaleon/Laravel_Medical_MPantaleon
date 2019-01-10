@@ -11,10 +11,10 @@
 							<h4>Admin Patients Dashboard</h4>
 						</div>
 						<div class="col">
-							<a class="text-white" href="{{ route('admin.patients.create') }}"><button type="submit" class="btn btn-primary float-right">Add Patient</button></a>
+							<a class="text-white" href="{{ route('admin.patients.create') }}"><button type="button" class="btn btn-primary float-right">Add Patient</button></a>
 						</div>
 						<div class="col">
-							<a href="{{ route('user.home') }}" class="float-right"><button class="btn btn-primary">Back To Home</button></a>
+							<a href="{{ route('admin.home') }}" class="float-right"><button class="btn btn-primary">Back To Home</button></a>
 						</div>
 					</div>
 					
@@ -54,13 +54,18 @@
 								
 								<td>@if($p->policy_number == null){{ 'N/A' }} @else {{ $p->policy_number }} @endif</td>
 								<td>
-									<a href="{{ route('admin.patients.show', $p->id) }}"><button type="submit" class="btn btn-secondary float-right">View</button></a>
+									<a href="{{ route('admin.patients.show', $p->id) }}"><button type="button" class="btn btn-secondary float-right">View</button></a>
 								</td>
 								<td>
-									<a href="{{ route('admin.patients.edit', $p->id) }}"><button type="submit" class="btn btn-info float-right">Edit</button></a>
+									<a href="{{ route('admin.patients.edit', $p->id) }}"><button type="button" class="btn btn-info float-right">Edit</button></a>
 								</td>
 								<td>
-									<a href="{{ route('admin.patients.destroy', $p->id) }}"><button type="button" class="btn btn-danger float-right">Delete</button></a>
+									<form method="post" action="{{ route('admin.patients.destroy', $p->id) }}">
+										<input type="hidden" name="_method" value="DELETE">
+										<input type="hidden" name="_token" value="{{ csrf_token() }}">
+										
+									<a href="#" class="float-right"><button class="btn btn-danger toDelete">Delete</button></a>
+									</form>
  
                   			 	</td>
                    			 </tr>

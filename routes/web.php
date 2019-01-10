@@ -27,12 +27,12 @@ Route::resource('admin/visits', 'admin\VisitController', array("as" => "admin"))
 //Route::resource('user/doctors', 'user\DoctorController', array("as" => "user"));
 
 //Route::resource('/doctors', 'user\DoctorController', array("as" =>"user"));
-Route::get('/doctors', 'user\DoctorController@index')->name('user.doctors.index')->middleware('auth');;
-Route::get('/doctors/{doctor}', 'user\DoctorController@show')->name('user.doctors.show')->middleware('auth');;
+Route::get('/doctors', 'user\DoctorController@index')->name('user.doctors.index')->middleware('auth');
+Route::get('/doctors/{doctor}', 'user\DoctorController@show')->name('user.doctors.show')->middleware('auth');
 
 //Route::resource('/patients', 'user\PatientController', array("as" =>"user"));
-Route::get('/patients', 'user\PatientController@index')->name('user.patients.index')->middleware('auth');;
-Route::get('/patients/{patient}', 'user\PatientController@show')->name('user.patients.show')->middleware('auth');;
+Route::get('/patients', 'user\PatientController@index')->name('user.patients.index')->middleware('auth');
+Route::get('/patients/{patient}', 'user\PatientController@show')->name('user.patients.show')->middleware('auth');
 
 Route::resource('/visits', 'user\VisitController', array("as" =>"user"));
 

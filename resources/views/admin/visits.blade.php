@@ -60,7 +60,7 @@
 										<input type="hidden" name="_method" value="DELETE">
 										<input type="hidden" name="_token" value="{{ csrf_token() }}">
 										
-									<a href="#" class="float-right"><button class="btn btn-danger">Delete Visit</button></a>
+									<a href="#" class="float-right" class="toDelete"><button class="btn btn-danger">Delete Visit</button></a>
 									</form>
                   			 	</td>
                    			 </tr>

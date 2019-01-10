@@ -75,6 +75,7 @@ class DoctorController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
+			
 			'name' => 'required',
 			'email' => 'required|email',
 			'postal_address' => 'required|max:6|min:6',
@@ -98,7 +99,11 @@ class DoctorController extends Controller
     
     public function destroy($id)
     {
+		
         $doctor = Doctor::findOrFail($id);
+		
+		
+		Visit::where('doctor_id', $doctor->id)->delete();
 		$doctor->delete();
 		
 		return redirect()->route('admin.doctors.index');

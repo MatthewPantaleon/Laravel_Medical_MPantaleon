@@ -24,49 +24,57 @@
                 <div class="card-body">
 					<form method="POST" action="{{ route('admin.doctors.store') }}">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <table>
-						<tr>
-							<th>Doctor</th>
+                    
+
+							<div class="form-group">
+								<label for="name">Name:</label>
+
+								<input type="text" name="name" value="{{ old('name') }}" class="form-control col-3">
+									@if($errors->has('name'))
+									<small class="error">{{ $errors->first('name') }}</small>
+									@endif
+							</div>
 							
-							<td><input type="text" name="name" value="{{ old('name') }}"></td>
-								@if($errors->has('name'))
-									<div class="error">{{ $errors->first('name') }}</div>
-								@endif
+
+							<div class="form-group">
+							<label for="email">Email:</label>
 							
-						</tr>
-						<tr>
-							<th>Email</th>
-							
-							<td><input type="text" name="email" value="{{ old('email') }}"></td>
+							<input type="text" name="email" value="{{ old('email') }}" class="form-control col-3">
 								@if($errors->has('email'))
-									<div class="error">{{ $errors->first('email') }}</div>
+									<small class="error">{{ $errors->first('email') }}</small>
 								@endif
-							
-						</tr>
-						<tr>
-							<th>Postal Address</th>
-							<td><input type="text" name="postal_address" value="{{ old('postal_address') }}"></td>
-							@if($errors->has('postal_address'))
-									<div class="error">{{ $errors->first('postal_address') }}</div>
-							@endif
-						</tr>
-						<tr>
-							<th>Phone Number</th>
-							<td><input type="text" name="phone_number" value="{{ old('phone_number') }}"></td>
-							@if($errors->has('phone_number'))
-									<div class="error">{{ $errors->first('phone_number') }}</div>
-							@endif
-						</tr>
-						<tr>
-							<th>Start Date</th>
-							<td><input type="text" name="start_date" value="{{ old('start_date') }}"></td>
-							@if($errors->has('start_date'))
-									<div class="error">{{ $errors->first('start_date') }}</div>
-							@endif
-						</tr>
-					</table>
+							</div>
 						
-						<input type="submit" value="Add Doctor">
+
+							<div class="form-group">
+							<label for="postal_address">Postal Address</label>
+							<input type="text" name="postal_address" value="{{ old('postal_address') }}" class="form-control col-3">
+							@if($errors->has('postal_address'))
+									<small class="error">{{ $errors->first('postal_address') }}</small>
+							@endif
+							</div>
+	
+	
+	
+							<div class="form-group">
+							<label for="phone_number">Phone Number</label>
+							<input type="text" name="phone_number" value="{{ old('phone_number') }}" class="form-control col-3">
+							@if($errors->has('phone_number'))
+									<small class="error">{{ $errors->first('phone_number') }}</small>
+										
+							@endif
+							</div>
+	
+							<div class="form-group">
+							<label for="start_date">Start Date</label>
+							<input type="text" name="start_date" value="{{ old('start_date') }}" class="form-control col-3">
+							@if($errors->has('start_date'))
+									<small class="error">{{ $errors->first('start_date') }}</small>
+							@endif
+							</div>
+
+						
+						<input type="submit" value="Add Doctor" class="btn btn-primary">
 					</form>
 					
                 </div>
