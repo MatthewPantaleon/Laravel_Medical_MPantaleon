@@ -51,7 +51,7 @@
 								<td>{{ $v->date }}</td>
 								<td>{{ $v->time }}</td>
 								<td>{{ $v->duration }}</td>
-								<td>{{ $v->price }}</td>
+								<td>€{{ $v->price }}</td>
 								<td><a href="{{ route('user.visits.edit', $v->id) }}" class="float-right"><button class="btn btn-secondary">Edit Visit</button></a></td>
 								
 								<td>

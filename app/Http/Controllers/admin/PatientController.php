@@ -45,7 +45,7 @@ class PatientController extends Controller
 			'name' => 'required',
 			'email' => 'required|email|unique:patients,email',
 			'postal_address' => 'required|min:6|max:6',
-			'phone_number' => 'required|min:11|numeric',
+			'phone_number' => 'required|regex:/[0-9]{11}/',
 			'medical_insurance' => 'nullable|boolean',
 			'company' => 'nullable|required_if:medical_insurance,1|integer',
 			'policy_number' => 'nullable|required_if:medical_insurance,1|min:6|max:6'
@@ -53,7 +53,7 @@ class PatientController extends Controller
 			'medical_insurance.boolean' => 'Medical Insurance must be a valid Value.',
 			'policy_number.required_if' => 'Policy Number is required.',
 			'company.required_if' => 'Company is required.',
-			'company.integer' => 'Caompany is must be a valid value.'
+			'company.integer' => 'Company must be a valid value.'
 		]);
 		
 		$patient = new Patient();
@@ -104,7 +104,7 @@ class PatientController extends Controller
 			'name' => 'required',
 			'email' => 'required|email|unique:patients,email,' .$id,
 			'postal_address' => 'required|min:6|max:6',
-			'phone_number' => 'required|min:11|numeric',
+			'phone_number' => 'required|regex:/[0-9]{11}/',
 			'medical_insurance' => 'nullable|boolean',
 			'company' => 'nullable|required_if:medical_insurance,1|integer',
 			'policy_number' => 'nullable|required_if:medical_insurance,1|min:6|max:6'

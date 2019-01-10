@@ -26,11 +26,11 @@
 					<form method="POST" action="{{ route('user.visits.update', $visit->id) }}">
 						<input type="hidden" name="_method" value="PUT">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <table>
-						<tr>
-							<th>Doctor</th>
-							<td>
-								<select name="doctor">
+
+						
+						<div class="form-group">
+							<label for="doctor">Doctor:</label>
+								<select name="doctor" class="form-control col-3">
 									@foreach($doctors as $d)
 									<option value="{{ $d->id }}" {{ old('doctor', $d->id) == $visit->doctor_id ? 'selected' : '' }}  >{{ $d->name }}</option>
 									@endforeach
@@ -38,52 +38,58 @@
 								@if($errors->has('doctor'))
 									<div class="error">{{ $errors->first('doctor') }}</div>
 								@endif
-							</td>
-						</tr>
-						<tr>
-							<th>Patient</th>
-							<td>
-								<select name="patient">
+						</div>
+
+						<div class="form-group">
+							<label for="patient">Patient:</label>
+								<select name="patient" class="form-control col-3">
 									@foreach($patients as $p)
-									<option value="{{ $p->id }}"  {{ old('patient', $p->id) == $visit->patient_id ? 'selected' : '' }}  >{{ $p->name }}</option>
+									<option value="{{ $p->id }}"  {{ old('patient', $visit->patient_id) == $p->id ? 'selected' : '' }}  >{{ $p->name }}</option>
 									@endforeach
 								</select>
 								@if($errors->has('patient'))
-									<div class="error">{{ $errors->first('patient') }}</div>
+									<small> class="error">{{ $errors->first('patient') }}</small>
 								@endif
-							</td>
-						</tr>
-						<tr>
-							<th>Date</th>
-							<td><input type="text" name="date" value="{{ old('date', $visit->date) }}"></td>
+						</div>
+
+						<div class="form-group">
+							<label for="date">Date:</label>
+							<input type="date" name="date" value="{{ old('date', $visit->date) }}" class="form-control col-3">
 							@if($errors->has('date'))
-									<div class="error">{{ $errors->first('date') }}</div>
+									<small class="error">{{ $errors->first('date') }}</small>
 							@endif
-						</tr>
-						<tr>
-							<th>Time</th>
-							<td><input type="text" name="time" value="{{ old('time', $visit->time) }}"></td>
+						</div>
+
+						<div class="form-group">
+							<label for="time">Time:</label>
+							<input type="time" name="time" value="{{ old('time', $visit->time) }}" class="form-control col-3">
 							@if($errors->has('time'))
-									<div class="error">{{ $errors->first('time') }}</div>
+								<small class="error">{{ $errors->first('time') }}</small>
 							@endif
-						</tr>
-						<tr>
-							<th>Duration</th>
-							<td><input type="text" name="duration" value="{{ old('duration', $visit->duration) }}"></td>
+						</div>
+						
+						<div class="form-group">
+							<label for="duration">Duration (Minutes):</label>
+							<input type="text" name="duration" value="{{ old('duration', $visit->duration) }}" class="form-control col-3">
 							@if($errors->has('duration'))
-									<div class="error">{{ $errors->first('duration') }}</div>
+								<small class="error">{{ $errors->first('duration') }}</small>
 							@endif
-						</tr>
-						<tr>
-							<th>Price</th>
-							<td><input type="text" name="price" value="{{ old('price', $visit->price) }}"></td>
+						</div>
+						
+						<div class="form-group">
+							<label for="price">Price:</label>
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><b>€</b></span>
+								</div>
+								<input type="text" name="price" value="{{ old('price', $visit->price) }}">
+							</div>
 							@if($errors->has('price'))
 									<div class="error">{{ $errors->first('price') }}</div>
 							@endif
-						</tr>
-					</table>
+						</div>
 						
-						<input type="submit" value="Edit Visit">
+						<button type="submit" class="btn btn-primary">Edit Visit</button>
 					</form>
 					
                 </div>

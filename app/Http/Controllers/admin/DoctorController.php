@@ -35,7 +35,7 @@ class DoctorController extends Controller
 			'name' => 'required',
 			'email' => 'required|email',
 			'postal_address' => 'required|max:6|min:6',
-			'phone_number' => 'required|numeric|min:11',
+			'phone_number' => 'required|regex:/[0-9]{11}/',
 			'start_date' => 'required|date',
 		]);
 		
@@ -79,7 +79,7 @@ class DoctorController extends Controller
 			'name' => 'required',
 			'email' => 'required|email',
 			'postal_address' => 'required|max:6|min:6',
-			'phone_number' => 'required|numeric|min:11',
+			'phone_number' => 'required|regex:/[0-9]{11}/',
 			'start_date' => 'required|date',
 		]);
 		

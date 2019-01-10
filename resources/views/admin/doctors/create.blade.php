@@ -28,18 +28,16 @@
 
 							<div class="form-group">
 								<label for="name">Name:</label>
-
 								<input type="text" name="name" value="{{ old('name') }}" class="form-control col-3">
-									@if($errors->has('name'))
+								@if($errors->has('name'))
 									<small class="error">{{ $errors->first('name') }}</small>
-									@endif
+								@endif
 							</div>
 							
 
 							<div class="form-group">
-							<label for="email">Email:</label>
-							
-							<input type="text" name="email" value="{{ old('email') }}" class="form-control col-3">
+								<label for="email">Email:</label>
+								<input type="text" name="email" value="{{ old('email') }}" class="form-control col-3">
 								@if($errors->has('email'))
 									<small class="error">{{ $errors->first('email') }}</small>
 								@endif
@@ -47,30 +45,29 @@
 						
 
 							<div class="form-group">
-							<label for="postal_address">Postal Address</label>
-							<input type="text" name="postal_address" value="{{ old('postal_address') }}" class="form-control col-3">
-							@if($errors->has('postal_address'))
+								<label for="postal_address">Postal Address</label>
+								<input type="text" name="postal_address" value="{{ old('postal_address') }}" class="form-control col-3">
+								@if($errors->has('postal_address'))
 									<small class="error">{{ $errors->first('postal_address') }}</small>
-							@endif
+								@endif
 							</div>
 	
 	
 	
 							<div class="form-group">
-							<label for="phone_number">Phone Number</label>
-							<input type="text" name="phone_number" value="{{ old('phone_number') }}" class="form-control col-3">
-							@if($errors->has('phone_number'))
+								<label for="phone_number">Phone Number</label>
+								<input type="text" name="phone_number" value="{{ old('phone_number') }}" class="form-control col-3">
+								@if($errors->has('phone_number'))
 									<small class="error">{{ $errors->first('phone_number') }}</small>
-										
-							@endif
+								@endif
 							</div>
 	
 							<div class="form-group">
-							<label for="start_date">Start Date</label>
-							<input type="text" name="start_date" value="{{ old('start_date') }}" class="form-control col-3">
-							@if($errors->has('start_date'))
+								<label for="start_date">Start Date</label>
+								<input type="date" name="start_date" value="{{ old('start_date') }}" class="form-control col-3">
+								@if($errors->has('start_date'))
 									<small class="error">{{ $errors->first('start_date') }}</small>
-							@endif
+								@endif
 							</div>
 
 						

@@ -24,71 +24,72 @@
                 <div class="card-body">
 					<form method="POST" action="{{ route('admin.patients.store') }}">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <table>
-						<tr>
-							<th>Name</th>
-							<td>
-								<input type="text" name="name" value="{{ old('name') }}">
-							</td>
+
+						
+						<div class="form-group">
+							<label for="name">Name:</label>
+							<input type="text" name="name" value="{{ old('name') }}" class="form-control col-3">
 							@if($errors->has('name'))
-									<div class="error">{{ $errors->first('name') }}</div>
-								@endif
-						</tr>
-						<tr>
-							<th>Email</th>
-							<td>
-								<input type="text" name="email" value="{{ old('email') }}">
-							</td>
+								<small class="error">{{ $errors->first('name') }}</small>
+							@endif
+						</div>
+							
+						<div class="form-group">
+							<label for="email">Email:</label>
+							<input type="text" name="email" value="{{ old('email') }}" class="form-control col-3">
 							@if($errors->has('email'))
-									<div class="error">{{ $errors->first('email') }}</div>
+								<small class="error">{{ $errors->first('email') }}</small>
 							@endif
-						</tr>
-						<tr>
-							<th>Postal Address</th>
-							<td><input type="text" name="postal_address" value="{{ old('postal_address') }}"></td>
+						</div>
+
+						<div class="form-group">
+							<label for="postal_address">Postal Address:</label>
+							<input type="text" name="postal_address" value="{{ old('postal_address') }}" class="form-control col-3">
 							@if($errors->has('postal_address'))
-									<div class="error">{{ $errors->first('postal_address') }}</div>
+								<small class="error">{{ $errors->first('postal_address') }}</small>
 							@endif
-						</tr>
-						<tr>
-							<th>Phone Number</th>
-							<td><input type="text" name="phone_number" value="{{ old('phone_number') }}"></td>
+						</div>
+						
+						<div class="form-group">
+							<label for="phone_number">Phone Number:</label>
+							<input type="text" name="phone_number" value="{{ old('phone_number') }}" class="form-control col-3">
 							@if($errors->has('phone_number'))
-									<div class="error">{{ $errors->first('phone_number') }}</div>
+								<small class="error">{{ $errors->first('phone_number') }}</small>
 							@endif
-						</tr>
-						<tr>
-							<th>Medical Insurance</th>
-							<td><input id="check" type="checkbox" name="medical_insurance" value="1" {{ (old('medical_insurance') == 1) ? 'checked' : '' }}></td>
+						</div>
+
+						<hr>
+						<div class="form-check mb-3">
+							
+							<input id="check" type="checkbox" name="medical_insurance" value="1" {{ (old('medical_insurance') == 1) ? 'checked' : '' }} class="form-check-input">
+							<label for="medical_insurance" class="form-check-label">Medical Insurance</label>
 							@if($errors->has('medical_insurance'))
-								<div class="error">{{ $errors->first('medical_insurance') }}</div>
+								<small class="error">{{ $errors->first('medical_insurance') }}</small>
 							@endif
-						</tr>
-						<tr>
-							<th>Insurance Company</th>
-							<td>
-								<select name="company">
+						</div>
+
+						<div class="form-group">
+							<label for="company">Insurance Company:</label>
+								<select name="company" class="form-control col-3">
+										<option value="">Select Company</option>
 									@foreach($companies as $c)
 										<option value="{{ $c->id }}">{{ $c->name }}</option>
 									@endforeach
-									
 								</select>
-							</td>
-							
-							@if($errors->has('price'))
-									<div class="error">{{ $errors->first('price') }}</div>
+							@if($errors->has('company'))
+									<small class="error">{{ $errors->first('company') }}</small>
 							@endif
-						</tr>
-						<tr>
-							<th>Policy Number</th>
-							<td><input type="text" name="policy_number" value="{{ old('policy_number') }}"></td>
-							@if($errors->has('policy_number'))
-									<div class="error">{{ $errors->first('policy_number') }}</div>
-							@endif
-						</tr>
-					</table>
+						</div>
 						
-						<input type="submit" value="Add Patient">
+						<div class="form-group">
+							<label>Policy Number:</label>
+							<input type="text" name="policy_number" value="{{ old('policy_number') }}" class="form-control col-3">
+							@if($errors->has('policy_number'))
+								<small class="error">{{ $errors->first('policy_number') }}</small>
+							@endif
+						</div>
+						
+						<button type="submit" class="btn btn-primary">Add Patient</button>
 					</form>
 					
                 </div>
