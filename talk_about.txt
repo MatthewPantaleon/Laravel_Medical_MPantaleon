@@ -1,0 +1,15 @@
+- Database structure, rough draft
+- Migrations -> what do, commands, files, migration order, detail of each
+	- make auth
+- seeders -> what do, commands, files, seed order, detail of each
+- models -> what do, commands, relationships, detail of each
+-- how test the back end
+
+- routes -> what do, route types, route list/order, how to apply
+
+- controllers -> what do, commands, types, functions, detail of each
+- middleware -> what do, types, how implemented
+- views -> what do, commands, blade(csrf, put/delete), detail of each
+		- layout app.blade.php
+
+- diagram of architecture
