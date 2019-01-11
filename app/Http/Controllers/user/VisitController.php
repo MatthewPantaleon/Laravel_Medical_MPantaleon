@@ -47,7 +47,7 @@ class VisitController extends Controller
 			'date' => 'required|date|unique:visits,date',
 			'price' => 'required|numeric',
 			'duration' => 'required|numeric',
-			'time' => 'required|date_format:"H:i:s"'
+			'time' => 'required|date_format:"H:i"'
 		],[
 			'doctor.integer' => 'Please Select a Valid Doctor.',
 			'patient.integer' => 'Please Select a Valid Patient.',
@@ -94,7 +94,7 @@ class VisitController extends Controller
 			'date' => 'required|date|unique:visits,date,' . $id,
 			'price' => 'required|numeric',
 			'duration' => 'required|numeric',
-			'time' => 'required|date_format:"H:i:s"'
+			'time' => 'required|date_format:"H:i"'
 		],[
 			'doctor.integer' => 'Please Select a Valid Doctor.',
 			'patient.integer' => 'Please Select a Valid Patient.',

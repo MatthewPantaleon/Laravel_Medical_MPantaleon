@@ -56,7 +56,7 @@
 									<a href="{{ route('admin.doctors.edit', $d->id) }}"><button type="submit" class="btn btn-info float-right">Edit</button></a>
 								</td>
 								<td>
-									<form method="post" action="{{ route('admin.doctors.destroy', $d->id) }}">
+									<form method="post" class="toDelete"action="{{ route('admin.doctors.destroy', $d->id) }}">
 										<input type="hidden" name="_method" value="DELETE">
 										<input type="hidden" name="_token" value="{{ csrf_token() }}">
 										

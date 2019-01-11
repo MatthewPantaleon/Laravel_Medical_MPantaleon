@@ -55,7 +55,7 @@
 								<td><a href="{{ route('user.visits.edit', $v->id) }}" class="float-right"><button class="btn btn-secondary">Edit Visit</button></a></td>
 								
 								<td>
-									<form method="post" action="{{ route('user.visits.destroy', $v->id) }}">
+									<form method="post" class="toDelete" action="{{ route('user.visits.destroy', $v->id) }}">
 										<input type="hidden" name="_method" value="DELETE">
 										<input type="hidden" name="_token" value="{{ csrf_token() }}">
 										
