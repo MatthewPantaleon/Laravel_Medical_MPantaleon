@@ -58,8 +58,8 @@ class CreateVisitsTable extends Migration
             $table->timestamps();
 			
 			//adds foriegn keys on doctors_id and patients_id on doctors and patients table respectively
-			$table->foreign('doctor_id')->references('id')->on('doctors');
-			$table->foreign('patient_id')->references('id')->on('patients');
+		$table->foreign('doctor_id')->references('id')->on('doctors');
+		$table->foreign('patient_id')->references('id')->on('patients');
         });
     }
 
