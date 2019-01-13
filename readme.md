@@ -388,7 +388,9 @@ At this point the controllers don't really do anything, they just print out a st
 #### Index and show
 I started with displaying all the doctors for both admins and users. ALl it does it return all the doctors and passes the array to the respective view. View for patients and visits are the same just with a different view path and array values. Show is nearly identical to index but it only passes one object to the respective show view.
 <br>
+
 I have it so that when viewing a single doctor all visits for that doctor are shown as well, I pass in patients as well so as to display the patient names for those visits so it makes sense to the user. Similar idea for patients but viists do not have to ability to be displayed as a single object.
+<br>
 
 ```php
 <?php
