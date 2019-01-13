@@ -602,6 +602,24 @@ public function handle($request, Closure $next)
     }
 
 ```
+<br>
+
+The check for if someone is logged in at all is overridden by the `auth` middleware, If I didn't use *auth*, a non logged in user will see the message and not the log in page.
+<br>
+
+ Now I have both middleware files set up, I need access to them. I edited the `Kernel.php` file accordingly:
+ 
+ ```php
+ <?php
+ 
+ protected $routeMiddleware = [
+ 
+        /.../
+		
+		'checkAdmin' => \App\Http\Middleware\CheckAdmin::class,
+		'checkUser' => \App\Http\Middleware\CheckUser::class,
+    ];
+ ```
 
 
 
