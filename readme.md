@@ -16,17 +16,19 @@
 	* [Create and Edit](#create-and-edit)
 	* [Store and Update](#store-and-update)
 	* [Delete](#delete)
+	* [Home Controllers](#home-controllers)
 5. [Middleware](#middleware)
 5. [Views](#views)
 	* [View Index and Show](#view-index-and-show)
 	* [View Create and Edit](#view-create-and-edit)
 	* [View Delete](#view-delete)
+	
 
 ---
 
 ### Laravel
 
-First thing I did was create a new laravel application. I made sure I had composer installed and made sure that the command prompt knows where composer was I typed in `composer global require laravel/installer` to get the laravel instaler. Again I made sure the command prompt knows what laravel is then I typed in `laravel new blog`. While working on different machines in the college I was not able to use laravel it self so I typed a composer comamnd that does the same thing `composer create-project --prefer-dist laravel/laravel NAME`. NAME is the name of the laravel application that will be created.
+First thing I did was create a new laravel application. I made sure I had composer installed and made sure that the command prompt knows where composer was I typed in `composer global require laravel/installer` to get the laravel installer. Again I made sure the command prompt knows what laravel is then I typed in `laravel new blog`. While working on different machines in the college I was not able to use laravel it self so I typed a composer comamnd that does the same thing `composer create-project --prefer-dist laravel/laravel NAME`. NAME is the name of the laravel application that will be created.
 
 ### Database
 
@@ -70,7 +72,7 @@ class CreateVisitsTable extends Migration
 			$table->double('price', 15, 2);
             $table->timestamps();
 			
-			//adds foriegn keys on doctors_id and patients_id on doctors and patients table respectively
+			//adds foreign keys on doctors_id and patients_id on doctors and patients table respectively
 			$table->foreign('doctor_id')->references('id')->on('doctors');
 			$table->foreign('patient_id')->references('id')->on('patients');
         });
@@ -111,7 +113,7 @@ class AppServiceProvider extends ServiceProvider
 
 
 <br>
-Since my tables have foriegn key constraints, the foriegn key constraints must be unsigned integers and the order in which the migrations or executed is very important. If I migrate the visits table first before either the codtors or patients. Laravel will return an SQL error. I have a similar situation for companies and patients where companies table must be created first.
+Since my tables have foreign key constraints, the foreign key constraints must be unsigned integers and the order in which the migrations or executed is very important. If I migrate the visits table first before either the codtors or patients. Laravel will return an SQL error. I have a similar situation for companies and patients where companies table must be created first.
 <br>
 
 Laravel executes the migrations based on the date order of the files. As shown here the visits table is the last file to be migrated. I didn't know it did this as I made my visits migration file before my patients file after realising this then changed the date on the visits migration.
@@ -121,9 +123,9 @@ Laravel executes the migrations based on the date order of the files. As shown h
 
 #### ENV
 
-Now that I had my migrations laravel needs to know where I'm migrating the files to, to create databae tables. In the ENV file in the root of the application I made sure that the databse name exists and set the username and pasword for phpMyAdmin.
+Now that I had my migrations laravel needs to know where I'm migrating the files to, to create databae tables. In the ENV file in the root of the application I made sure that the database name exists and set the username and password for phpMyAdmin.
 
-```javascipt
+```javascript
 
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
@@ -147,7 +149,7 @@ Now there are empty tables in database we need data to initially populate the ta
 Before wI seeded the database, I needed to create the models. Models are the way laravel converts database data into PHP objects for use the application and vice-versa save into the database. Using the command: `php artisan make:model Name` where name is the name of the blank model class that is to be created for a specific table. By default the model will assume the name of its table is the plural of its name. If you have a different table name from the one that laravel uses by default, you can set `$table` to a custom name. I set my table name to what laravel would use to be on the safe side.
 <br>
 
-While migrations deal with database creation and databse constraints. Models are used to create objects and create relational queries based on the database constraints.
+While migrations deal with database creation and database constraints. Models are used to create objects and create relational queries based on the database constraints.
 <br>
 
 Below are the models for doctors, patients and visits. There are more models in my project but these three highlight the core principles of models.
@@ -239,7 +241,7 @@ Seeders are a way to automatically seed tables with immediate data, mainly used 
 To quickly duplicate blank seeder files I used the comamnds: `php artisan make:seeder UsersTableSeeder`, `php artisan make:seeder DoctorsTableSeeder`. etc... for each model class.
 
 <br>
-With the models defined putting data in the databse becomes easier as I can just create each table's repective model objects and save them.
+With the models defined putting data in the database becomes easier as I can just create each table's repective model objects and save them.
 
 For example the *VisitsTableSeeder.php*:
 
@@ -302,7 +304,7 @@ class VisitsTableSeeder extends Seeder
 
 ```
 
-To seed the tables I used the command: `php artisan db:seed`. Migrations used date stamps in their name to determine execute order but the seed command goes to *DatabaseSeeder.php* and executes each seeder file line by line, so it is important that tables that have constraints on other tables be seeded last to ensure integrity. Using the Model's ability to do relational queries, seeder values that need values from other tables are never fully hardcoded. Further enforcing foriegn key constraints.
+To seed the tables I used the command: `php artisan db:seed`. Migrations used date stamps in their name to determine execute order but the seed command goes to *DatabaseSeeder.php* and executes each seeder file line by line, so it is important that tables that have constraints on other tables be seeded last to ensure integrity. Using the Model's ability to do relational queries, seeder values that need values from other tables are never fully hardcoded. Further enforcing foreign key constraints.
 <br>
 
 
@@ -381,7 +383,7 @@ Admins have the resource route for doctors, patients and visits. As for users I 
 I put the controllers in the correct file paths and made sure that the name space of the controllers are correct and made sure they can still inherit from the Controller Super Class so they still work.
 <br>
 
-I tested if the controlers were being used by returning a string confirming the routes do work.
+I tested if the controllers were being used by returning a string confirming the routes do work.
 <br>
 
 ---
@@ -390,11 +392,13 @@ I tested if the controlers were being used by returning a string confirming the 
 
 At this point the controllers don't really do anything, they just print out a string to the page.
 
+
+
 #### Index and show
-I started with displaying all the doctors for both admins and users. ALl it does it return all the doctors and passes the array to the respective view. View for patients and visits are the same just with a different view path and array values. Show is nearly identical to index but it only passes one object to the respective show view.
+I started with displaying all the doctors for both admins and users. All it does it return all the doctors and passes the array to the respective view. View for patients and visits are the same just with a different view path and array values. Show is nearly identical to index but it only passes one object to the respective show view.
 <br>
 
-I have it so that when viewing a single doctor all visits for that doctor are shown as well, I pass in patients as well so as to display the patient names for those visits so it makes sense to the user. Similar idea for patients but viists do not have to ability to be displayed as a single object.
+I have it so that when viewing a single doctor all visits for that doctor are shown as well, I pass in patients as well so as to display the patient names for those visits so it makes sense to the user. Similar idea for patients but vists do not have to ability to be displayed as a single object.
 <br>
 
 ```php
@@ -420,7 +424,7 @@ public function show($id)
 <br>
 
 #### Create and Edit
-Create and Edit fucntions in the controller just returns the views for the create and edit forms for doctors, patients and visits for admins and vistis for users. Key difference being the edit form is being passed the appropriate object that is to be edited.
+Create and Edit functions in the controller just returns the views for the create and edit forms for doctors, patients and visits for admins and visits for users. Key difference being the edit form is being passed the appropriate object that is to be edited.
 
 ```php
 <?php
@@ -439,7 +443,7 @@ public function edit($id)
 ```
 
 #### Store and update
-Store and update are routed to from the create and edit view forms. This is where the request is validated and saved. If there is a validation error it go back to the view page the request originated from. Visits are the same, validate then either make a new visit object or find an existing one then save the new data to the database. Once it has finished it redirects back to the index.
+Store and update are routed to from the create and edit view forms. This is where the request is validated and saved. If there is a validation error it to go back to the view page the request originated from. Visits are the same, validate then either make a new visit object or find an existing one then save the new data to the database. Once it has finished it redirects back to the index.
 
 ```php
 <?php
@@ -492,7 +496,7 @@ public function update(Request $request, $id)
 
 ```
 <br>
-There is an exception for patients as its fields are only required if a checkbox has been checked. I put in custome error messages to display for the user because the default error messages does not make sense to a normal user. I am also checking if medical insurance is checked. If checked save the other fields dependant on medical insurance. if not don't bother saving them. Editing a patient is the exact same, validation is the same and saving it is the same. Only difference is finding an existing patient.
+There is an exception for patients as its fields are only required if a checkbox has been checked. I put in custom error messages to display for the user because the default error messages does not make sense to a normal user. I am also checking if medical insurance is checked. If checked save the other fields dependant on medical insurance. if not don't bother saving them. Editing a patient is the exact same, validation is the same and saving it is the same. Only difference is finding an existing patient.
 
 <br>
 <br>
@@ -558,10 +562,29 @@ public function destroy($id)
 ```
 <br>
 After the patient is deleted it routes back to the index.
+<br>
 
+#### Home Controllers
+I wanted to make sure that each role type has its own home page but I didn't want to get rid of the `/home` route it's too convenient to use. So in the base *HomeController* index function I put in if statements to redirect the logged in user to their correct home page.
+
+```php
+<?php
+
+public function index()
+    {
+		$user = Auth::user();
+		
+		if($user->role->name == 'admin'){
+			return view('admin.home');
+		}else if($user->role->name == 'user'){
+			return view('user.home');
+		}
+    }
+
+```
 
 ### Middleware
-Middleware is code that is executed before the route goes to where it's supposed to go. I wanted to make it so that a user can not access admin routes and admins can't access user routes. First I needed to check if there is someone currently logged in as in [Routes](#routes) there is this `->middleware('auth')`. This comes already with laravel and only checks if someone is logged in. If not it brings them to the login url. I created two new pieces of middleware that checks if the person logged in is and admin or user.
+Middleware is code that is executed before the route goes to where it's supposed to go. I wanted to make it so that a user cannot access admin routes and admins can't access user routes. First I needed to check if there is someone currently logged in as in [Routes](#routes) there is this `->middleware('auth')`. This comes already with laravel and only checks if someone is logged in. If not it brings them to the login url. I created two new pieces of middleware that checks if the person logged in is and admin or user.
 <br>
 
 In admin controllers the constructor looks like: 
@@ -608,7 +631,7 @@ public function handle($request, Closure $next)
 ```
 <br>
 
-The check for if someone is logged in at all is overridden by the `auth` middleware, If I didn't use *auth*, a non logged in user will see the message and not the log in page.
+The check for if someone is logged in at all is overridden by the `auth` middleware, If I didn't use *auth*, a non-logged in user will see the message and not the log in page.
 <br>
 
  Now I have both middleware files set up, I need access to them. I edited the `Kernel.php` file accordingly:
@@ -630,7 +653,7 @@ The check for if someone is logged in at all is overridden by the `auth` middlew
 View are the front end of the application. What the user gets to see and interact with.
 
 #### View Index and Show
-Views use a templating language with syntax simlarities to Angular JS.View get their data from the controller that returns them. For the index of doctors, patients and visits. A foreach loop loops through each element in the array to display all the respective objects but in patients I made it so that patients with no medical insurance display information that makes sense.
+Views use a templating language with syntax simlarities to Angular JS, views get their data from the controller that returns them. For the index of doctors, patients and visits. A foreach loop loops through each element in the array to display all the respective objects but in patients I made it so that patients with no medical insurance display information that makes sense.
 
 ```html
 
@@ -671,7 +694,7 @@ Both create and edit forms have a hidden input field with a CSRF(Cross Site Requ
 ```html
 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 ```
-For the create view it's mainly just a form with inputs matching those of the fields of the table in the database. When there are validation errors an *old* function is called which displays the values before the user submitted the form. For edit forms the old function is the same but takes a second parameter, the value of the object being edited. it displays if there is no old value.
+For the create view it's mainly just a form with inputs matching those of the fields of the table in the database. When there are validation errors an *old* function is called which displays the values before the user submitted the form. For edit forms the old function is the same but takes a second parameter, the value of the object being edited. It displays if there is no old value.
 
 <br>
 
