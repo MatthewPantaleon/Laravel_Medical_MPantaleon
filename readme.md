@@ -51,15 +51,15 @@ class CreateVisitsTable extends Migration
             $table->increments('id');
             $table->integer('doctor_id')->unsigned();
             $table->integer('patient_id')->unsigned();
-		$table->date('date');
-		$table->time('time');
-		$table->integer('duration');
-		$table->double('price', 15, 2);
+			$table->date('date');
+			$table->time('time');
+			$table->integer('duration');
+			$table->double('price', 15, 2);
             $table->timestamps();
 			
 			//adds foriegn keys on doctors_id and patients_id on doctors and patients table respectively
-		$table->foreign('doctor_id')->references('id')->on('doctors');
-		$table->foreign('patient_id')->references('id')->on('patients');
+			$table->foreign('doctor_id')->references('id')->on('doctors');
+			$table->foreign('patient_id')->references('id')->on('patients');
         });
     }
 
