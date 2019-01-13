@@ -692,35 +692,35 @@ Delete routes do not have a view file but I added JQuery confirmation when delet
 <script>
 		
 		
-		$(document).ready(function(){
-			
-			//toDelete class on delete forms checks on submit
-			$(".toDelete").one("submit", function(e){
-				e.preventDefault();//prevents the form from sending
-				
-				var url = $(this)["0"].baseURI;//gets the url of the delete form
-				
-				//checks agains the url to dislpay the correct type of object to be deleted
-				if(url.indexOf("patients") > 0){
-					item = "Patient";
-				}else if(url.indexOf("doctors") > 0){
-					item = "Doctor";
-				}else if(url.indexOf("visits") > 0){
-					item = "Visit";
-				}
-				
-				proceed(item);
-				
-			});
-			
-			//function to proceed with the delete submit
-			function proceed(type){
-				
-				if(confirm("Delete this " + type + "? This cannot be undone!")){
-				   	$(".toDelete").off().submit();
-				}
+	$(document).ready(function(){
+
+		//toDelete class on delete forms checks on submit
+		$(".toDelete").one("submit", function(e){
+			e.preventDefault();//prevents the form from sending
+
+			var url = $(this)["0"].baseURI;//gets the url of the delete form
+
+			//checks agains the url to dislpay the correct type of object to be deleted
+			if(url.indexOf("patients") > 0){
+				item = "Patient";
+			}else if(url.indexOf("doctors") > 0){
+				item = "Doctor";
+			}else if(url.indexOf("visits") > 0){
+				item = "Visit";
 			}
+
+			proceed(item);
+
 		});
+
+		//function to proceed with the delete submit
+		function proceed(type){
+
+			if(confirm("Delete this " + type + "? This cannot be undone!")){
+				$(".toDelete").off().submit();
+			}
+		}
+	});
 		
 	</script>
 
