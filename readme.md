@@ -14,6 +14,8 @@
 5. [Controllers](#controllers)
 	* [Index and Show](#index-and-show)
 	* [Create and Edit](#create-and-edit)
+	* [Store and Update](#store-and-update)
+	* [Delete](#delete)
 
 ---
 
@@ -526,9 +528,25 @@ public function store(Request $request)
     }
 
 ```
+<br>
 
+#### Delete
+For delete I make sure that integrity is preserved, If a patient or doctor is being deleted I delete all of their respective visits first then I delete the patient or doctor. In this example a patient.
 
-
+```php
+<?php
+public function destroy($id)
+    {
+        $patient = Patient::findOrFail($id);
+		
+		Visit::where('patient_id', $patient->id)->delete();
+		$patient->delete();
+		
+		return redirect()->route('admin.patients.index');
+    }
+```
+<br>
+AFter the patient is deleted it routes back to the index.
 
 
 
