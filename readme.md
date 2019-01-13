@@ -488,6 +488,8 @@ public function update(Request $request, $id)
 ```
 <br>
 There is an exception for patients as its fields are only required if a checkbox has been checked. I put in custome error messages to display for the user because the default error messages does not make sense to a normal user. I am also checking if medical insurance is checked. If checked save the other fields dependant on medical insurance. if not don't bother saving them. Editing a patient is the exact same, validation is the same and saving it is the same. Only difference is finding an existing patient.
+
+
 <br>
 
 
