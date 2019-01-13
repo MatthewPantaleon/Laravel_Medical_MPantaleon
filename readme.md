@@ -217,7 +217,7 @@ class Visit extends Model
 <br>
 
 
-This allows laravel to retrieve data relative from other tables. I.e. `Patient::all()->first()->visits()` this will return all visits for the first patient in the database. `Visit::all()->last()->doctor()->name` this will return the doctor name for the last visit in the database.
+This allows laravel to retrieve data relative from other tables. I.e. `Patient::all()->first()->visits()` this will return all visits for the first patient in the database. One-to-Many. `Visit::all()->last()->doctor()->name` this will return the doctor name for the last visit in the database. One-to-Many inverse.
 <br>
 
 I used `php artisan tinker` to test the relational queries as I went along to make sure the queries worked.
@@ -227,7 +227,100 @@ I used `php artisan tinker` to test the relational queries as I went along to ma
 ### Seeders
 Seeders are a way to automatically seed tables with immediate data, mainly used for testing and setup purposes.
 
-To quickly duplicate blank seeder files I usde the comamnds: `php artisan make:seeder UsersTableSeeder`, `php artisan make:seeder DoctorsTableSeeder`. etc...
+To quickly duplicate blank seeder files I used the comamnds: `php artisan make:seeder UsersTableSeeder`, `php artisan make:seeder DoctorsTableSeeder`. etc... for each model class.
+
+<br>
+With the models defined putting data in the databse becomes easier as I can just create each table's repective model objects and save them.
+
+For example the *VisitsTableSeeder.php*:
+
+```php
+
+<?php
+
+use Illuminate\Database\Seeder;
+use App\Role;
+use App\User;
+use App\Doctor;
+use App\Visit;
+use App\Patient;
+
+class VisitsTableSeeder extends Seeder
+{
+    /*		Table Reference
+	
+     		$table->increments('id');
+            $table->integer('doctor_id')->unsigned();
+            $table->integer('patient_id')->unsigned();
+			$table->date('date');
+			$table->time('time');
+			$table->integer('duration');
+			$table->double('price', 15, 2);
+            $table->timestamps();
+     */
+	 
+    public function run()
+    {
+		$visit1 = new Visit();
+		$visit1->doctor_id = Doctor::where('email', 'Al@Gore.com')->first()->id;
+		$visit1->patient_id = Patient::where('email', 'Kyle@Reed.com')->first()->id;
+		$visit1->date = '2017-05-20';
+		$visit1->time = '12:00';
+		$visit1->duration = 30;
+		$visit1->price = 65.00;
+		$visit1->save();
+		
+		$visit1 = new Visit();
+		$visit1->doctor_id = Doctor::where('email', 'Al@Gore.com')->first()->id;
+		$visit1->patient_id = Patient::where('email', 'danny@phantom.com')->first()->id;
+		$visit1->date = '2017-05-22';
+		$visit1->time = '12:00';
+		$visit1->duration = 30;
+		$visit1->price = 65.00;
+		$visit1->save();
+		
+		$visit1 = new Visit();
+		$visit1->doctor_id = Doctor::where('email', 'dr@suess.com')->first()->id;
+		$visit1->patient_id = Patient::where('email', 'carl@boone.com')->first()->id;
+		$visit1->date = '2017-05-22';
+		$visit1->time = '12:00';
+		$visit1->duration = 30;
+		$visit1->price = 65.00;
+		$visit1->save();
+		
+    }
+}
+
+```
+
+To seed the tables I used the command: `php artisan db:seed`. Migrations used date stamps in their name to determine execute order but the seed command goes to *DatabaseSeeder.php* and executes each seeder file line by line, so it is important that tables that have constraints on other tables be seeded last to ensure integrity. Using the Model's ability to do relational queries, seeder values that need values from other tables are never fully hardcoded. Further enforcing foriegn key constraints.
+<br>
+
+
+Here Users belongs to Roles. So Roles are seeded first, Patients belong to Companies and Visits belongs to Doctors and Patients and is seeded last.
+
+```php
+
+<?php
+
+use Illuminate\Database\Seeder;
+
+class DatabaseSeeder extends Seeder
+{
+    
+    public function run()
+    {
+        $this->call(RolesTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
+        $this->call(DoctorsTableSeeder::class);
+        $this->call(CompaniesTableSeeder::class);
+        $this->call(PatientsTableSeeder::class);
+		$this->call(VisitsTableSeeder::class);
+    }
+}
+
+```
+
 <br>
 
 

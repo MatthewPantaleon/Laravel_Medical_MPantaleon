@@ -9,7 +9,8 @@ use App\Patient;
 
 class VisitsTableSeeder extends Seeder
 {
-    /**
+    /*		Table Reference
+	
      		$table->increments('id');
             $table->integer('doctor_id')->unsigned();
             $table->integer('patient_id')->unsigned();
