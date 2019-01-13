@@ -632,11 +632,29 @@ Views use a templating language with syntax simlarities to Angular JS.View get t
 
 ```html
 
-<td> @if($p->medical_insurance == 1){{ 'Yes' }} @else {{ 'No' }} @endif</td>
+<td>
+	@if($p->medical_insurance == 1)
+		{{ 'Yes' }}
+	@else
+		{{ 'No' }}
+	@endif
+</td>
 								
-<td>@if($companies->where('id', $p->company_id)->first() == null){{ 'N/A' }} @else {{$companies->where('id', $p->company_id)->first()->name }} @endif</td>
+<td>
+	@if($companies->where('id', $p->company_id)->first() == null)
+		{{ 'N/A' }}
+	@else
+		{{$companies->where('id', $p->company_id)->first()->name }}
+	@endif
+</td>
 
-<td>@if($p->policy_number == null){{ 'N/A' }} @else {{ $p->policy_number }} @endif</td>
+<td>
+	@if($p->policy_number == null)
+		{{ 'N/A' }}
+	@else
+		{{ $p->policy_number }}
+	@endif
+</td>
 
 ```
 
