@@ -81,7 +81,7 @@ Laravel executes the migrations based on the date order of the files. As shown h
 
 #### ENV file
 
-Now that I had my migrations laravel needs to know where I'm migrating the files to, to create databae tables
+Now that I had my migrations laravel needs to know where I'm migrating the files to, to create databae tables. In the ENV file in the root of the application I made sure that the databse name exists and set the username and pasword for phpMyAdmin.
 
 ```javascipt
 
@@ -93,6 +93,9 @@ DB_USERNAME=root
 DB_PASSWORD=
 
 ```
+---
+
+Now Laravel knows where to migrate the files I migrated them using the command: 
 
 
 
