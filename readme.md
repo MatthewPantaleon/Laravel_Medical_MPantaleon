@@ -10,7 +10,7 @@
 		 * [ENV](#ENV)
 2. [Models](#models)
 3. [Seeders](#seeders)
-4. [Models](#third-example)
+4. [Routes](#routes)
 5. [Tinker](#Tinker)
 
 ---
@@ -322,6 +322,46 @@ class DatabaseSeeder extends Seeder
 ```
 
 <br>
+
+---
+
+Once I have fully checked that the Model realtionships are working. The front end of the application now gets done.
+<br>
+
+### Routes
+
+Routes are how users navigate through your site, however many pages you make it. Since my project has roles, routes are the first place where these roles really show on what can be accessed. I have an admin and user role I made it so that admins can create, read, update and delete all three types. Doctors, patients and visits. While users can CRUD visits but only read doctors and patients.
+<br>
+
+```php
+<?php
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('admin/home', 'HomeController@index')->name('admin.home');
+Route::get('user/home', 'HomeController@index')->name('user.home');
+
+Route::resource('admin/doctors', 'admin\DoctorController', array("as" => "admin"))->middleware('auth');
+Route::resource('admin/patients', 'admin\PatientController', array("as" => "admin"))->middleware('auth');
+Route::resource('admin/visits', 'admin\VisitController', array("as" => "admin"))->middleware('auth');
+//Route::resource('user/doctors', 'user\DoctorController', array("as" => "user"));
+
+//Route::resource('/doctors', 'user\DoctorController', array("as" =>"user"));
+Route::get('/doctors', 'user\DoctorController@index')->name('user.doctors.index')->middleware('auth');
+Route::get('/doctors/{doctor}', 'user\DoctorController@show')->name('user.doctors.show')->middleware('auth');
+
+//Route::resource('/patients', 'user\PatientController', array("as" =>"user"));
+Route::get('/patients', 'user\PatientController@index')->name('user.patients.index')->middleware('auth');
+Route::get('/patients/{patient}', 'user\PatientController@show')->name('user.patients.show')->middleware('auth');
+
+Route::resource('/visits', 'user\VisitController', array("as" =>"user"));
+
+```
 
 
 
