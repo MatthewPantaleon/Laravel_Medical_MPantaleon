@@ -7,6 +7,7 @@
 1. [Laravel](#laravel)
 1. [Database](#Database)
 	* [Migrations](#migrations)
+		 * [ENV](#ENV)
 2. [Migrations](#example2)
 3. [Seeders](#third-example)
 4. [Models](#third-example)
@@ -20,7 +21,7 @@ First thing I did was create a new laravel application. I made sure I had compos
 
 ### Database
 
-The database structure consists of 6 main tables. Patients, Doctors, Visits, companies, users and roles. <br>
+Now that I have fresh laravel application I moved on to the database. The database structure consists of 6 main tables. Patients, Doctors, Visits, companies, users and roles. <br>
 Patients and doctors have a many-to-many relation ship through the visits table. <br>
 Patients can have one company and a company can have many patients. Making it a one-to-many.
 Users can only have one role and a role can have multiple users. Also making it a one-to-many.
@@ -77,6 +78,29 @@ class CreateVisitsTable extends Migration
 ```
 
 `$table` will be the value of the substring between *create_* and *_table* in the migration file name. You can speicify a custom table name by defining your own `$table` variable. e.g. `$table = 'custom_name'`.
+<br>
+After migrating one a SQL an error is returned saying *specified key was too long*. This is because the xampp version that we use runs on an SQL version lower than what laravel supports by default. To fix this I went to the *AppServiceProvider* file and edited as such:
+
+```php
+
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Schema; //imports the Schema class
+
+class AppServiceProvider extends ServiceProvider
+{
+    public function boot()
+    {
+        Schema::defaultStringLength(191); // fizes SQL error of key being too long
+    }
+}
+
+```
+
+
 
 <br>
 Since my tables have foriegn key constraints, the foriegn key constraints must be unsigned integers and the order in which the migrations or executed is very important. If I migrate the visits table first before either the codtors or patients. Laravel will return an SQL error. I have a similar situation for companies and patients where companies table must be created first.
@@ -86,7 +110,7 @@ Laravel executes the migrations based on the date order of the files. As shown h
 ![migration order](migrations.PNG)
 
 
-#### ENV file
+#### ENV
 
 Now that I had my migrations laravel needs to know where I'm migrating the files to, to create databae tables. In the ENV file in the root of the application I made sure that the databse name exists and set the username and pasword for phpMyAdmin.
 
