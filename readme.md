@@ -363,7 +363,9 @@ Route::resource('/visits', 'user\VisitController', array("as" =>"user"));
 
 ```
 
-
+`Route::resource()` Routes to all seven default functions to which ever controller you route it to.
+<br>
+	* Unordered sub-list.
 
 
 
