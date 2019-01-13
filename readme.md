@@ -631,13 +631,13 @@ View are the front end of the application. What the user gets to see and interac
 Views use a templating language with syntax simlarities to Angular JS.View get their data from the controller that returns them. For the index of doctors, patients and visits. A foreach loop loops through each element in the array to display all the respective objects but in patients I made it so that patients with no medical insurance display information that makes sense.
 
 ```html
-<html>
+
 <td> @if($p->medical_insurance == 1){{ 'Yes' }} @else {{ 'No' }} @endif</td>
 								
 <td>@if($companies->where('id', $p->company_id)->first() == null){{ 'N/A' }} @else {{$companies->where('id', $p->company_id)->first()->name }} @endif</td>
 
 <td>@if($p->policy_number == null){{ 'N/A' }} @else {{ $p->policy_number }} @endif</td>
-</html>
+
 ```
 
 
