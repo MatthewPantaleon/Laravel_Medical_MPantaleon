@@ -16,6 +16,7 @@
 	* [Create and Edit](#create-and-edit)
 	* [Store and Update](#store-and-update)
 	* [Delete](#delete)
+5. [Middleware](#middleware)
 
 ---
 
@@ -552,7 +553,56 @@ public function destroy($id)
     }
 ```
 <br>
-AFter the patient is deleted it routes back to the index.
+After the patient is deleted it routes back to the index.
+
+
+### Middleware
+Middleware is code that is executed before the route goes to where it's supposed to go. I wanted to make it so that a user can not access admin routes and admins can't access user routes. First I needed to check if there is someone currently logged in as in [Routes](#routes) there is this `->middleware('auth')`. This comes already with laravel and only checks if someone is logged in. If not it brings them to the login url. I created two new pieces of middleware that checks if the person logged in is and admin or user.
+<br>
+
+In admin controllers the constructor looks like: 
+
+```php
+<?php 
+
+public function __construct()
+    {
+        $this->middleware('checkAdmin');
+    }
+
+```
+<br>
+And users constructor looks like:
+
+```php
+<?php
+
+public function __construct()
+    {
+        $this->middleware('checkUser');
+    }
+
+```
+<br>
+
+If a user tried to access an admin route, they will be shown an *Unauthorised Message*. In the middleware class for both admin and user:
+
+```php
+<?php
+
+public function handle($request, Closure $next)
+    {
+		//checks if there is someone logged in or if that someone has an admin role or user role
+		if (!$request->user() || !$request->user()->hasRole('admin')) {
+			echo '<a href="/"><button>Back to Welcome Page</button></a><br><br>';
+            return response('Unauthorised.', 401);
+        }
+		
+        return $next($request);
+    }
+
+```
+
 
 
 
