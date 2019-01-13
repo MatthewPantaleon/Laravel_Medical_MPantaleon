@@ -79,6 +79,7 @@ class CreateVisitsTable extends Migration
 
 `$table` will be the value of the substring between *create_* and *_table* in the migration file name. You can speicify a custom table name by defining your own `$table` variable. e.g. `$table = 'custom_name'`.
 <br>
+
 After migrating one a SQL an error is returned saying *specified key was too long*. This is because the xampp version that we use runs on an SQL version lower than what laravel supports by default. To fix this I went to the *AppServiceProvider* file and edited as such:
 
 ```php
