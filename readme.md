@@ -18,7 +18,9 @@
 	* [Delete](#delete)
 5. [Middleware](#middleware)
 5. [Views](#views)
-	* [View-Index and Show](#view-index-and-show)
+	* [View Index and Show](#view-index-and-show)
+	* [View Create and Edit](#view-create-and-edit)
+	* [View Delete](#view-delete)
 
 ---
 
@@ -655,6 +657,72 @@ Views use a templating language with syntax simlarities to Angular JS.View get t
 		{{ $p->policy_number }}
 	@endif
 </td>
+
+```
+<br>
+
+I made it so that doctor and patient names are displayed in visits.
+<br>
+
+#### View Create and Edit
+Both create and edit forms have a hidden input field with a CSRF(Cross Site Request Forgery) token. The data sent to and from the server maybe secure but the source is not. The token ensures that the request made does come from the same source.
+
+<br>
+```html
+<input type="hidden" name="_token" value="{{ csrf_token() }}">
+```
+For the create view it's mainly just a form with inputs matching those of the fields of the table in the database. When there are validation errors an *old* function is called which displays the values before the user submitted the form. For edit forms the old function is the same but takes a second parameter, the value of the object being edited. it displays if there is no old value.
+
+<br>
+
+Edit forms also require a PUT method. HTML don't support this so another hidden input field must be put in that laravel itself interprets as such:
+<br>
+
+```html
+<input type="hidden" name="_method" value="PUT">
+```
+
+<br>
+
+#### View Delete
+Delete routes do not have a view file but I added JQuery confirmation when deleting a doctor, patient or visit. In the *app.blade.php* at the end:
+
+```html
+
+<script>
+		
+		
+		$(document).ready(function(){
+			
+			//toDelete class on delete forms checks on submit
+			$(".toDelete").one("submit", function(e){
+				e.preventDefault();//prevents the form from sending
+				
+				var url = $(this)["0"].baseURI;//gets the url of the delete form
+				
+				//checks agains the url to dislpay the correct type of object to be deleted
+				if(url.indexOf("patients") > 0){
+					item = "Patient";
+				}else if(url.indexOf("doctors") > 0){
+					item = "Doctor";
+				}else if(url.indexOf("visits") > 0){
+					item = "Visit";
+				}
+				
+				proceed(item);
+				
+			});
+			
+			//function to proceed with the delete submit
+			function proceed(type){
+				
+				if(confirm("Delete this " + type + "? This cannot be undone!")){
+				   	$(".toDelete").off().submit();
+				}
+			}
+		});
+		
+	</script>
 
 ```
 
