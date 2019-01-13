@@ -141,7 +141,7 @@ Before wI seeded the database, I needed to create the models. Models are the way
 While migrations deal with database creation and databse constraints. Models are used to create objects and create relational queries based on the database constraints.
 <br>
 
-Below are the models for doctors, patients and visits:
+Below are the models for doctors, patients and visits. There are more models in my project but these three highlight the core principles of models.
 
 Doctor Model:
 ```php
@@ -216,9 +216,13 @@ class Visit extends Model
 ```
 <br>
 
+
 This allows laravel to retrieve data relative from other tables. I.e. `Patient::all()->first()->visits()` this will return all visits for the first patient in the database. `Visit::all()->last()->doctor()->name` this will return the doctor name for the last visit in the database.
 <br>
 
+I used `php artisan tinker` to test the relational queries as I went along to make sure the queries worked.
+
+---
 
 ### Seeders
 Seeders are a way to automatically seed tables with immediate data, mainly used for testing and setup purposes.
