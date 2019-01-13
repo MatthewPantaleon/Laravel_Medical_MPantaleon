@@ -8,8 +8,8 @@
 1. [Database](#Database)
 	* [Migrations](#migrations)
 		 * [ENV](#ENV)
-2. [Migrations](#example2)
-3. [Seeders](#third-example)
+2. [Models](#models)
+3. [Seeders](#seeders)
 4. [Models](#third-example)
 5. [Tinker](#Tinker)
 
@@ -33,8 +33,7 @@ below it the structure of the database.
 ---
 
 #### Migrations
-
-Migrations are what laravel uses to be able to create database tables.
+With the structure of the database down I needed to create the tables. Laravel ofers migrations. Migrations are what laravel uses to be able to create database tables.
 I used comamnds the artisan command e.g.`php artisan make:migration create_doctors_table` to create blank migration files. I created one for each table I need. With the exception of the users table I used `php artisan make:auth` This creates all the user related migration, model, view ad controller files for user functionality. Login and register.
 
 I edited each file to have any columns I wanted it each table and added constraints to the table where it was needed. For example the visits table.
@@ -77,7 +76,6 @@ class CreateVisitsTable extends Migration
 
 ```
 
-`$table` will be the value of the substring between *create_* and *_table* in the migration file name. You can speicify a custom table name by defining your own `$table` variable. e.g. `$table = 'custom_name'`.
 <br>
 
 After migrating one a SQL an error is returned saying *specified key was too long*. This is because the xampp version that we use runs on an SQL version lower than what laravel supports by default. To fix this I went to the *AppServiceProvider* file and edited as such:
@@ -128,9 +126,103 @@ DB_PASSWORD=
 ```
 ---
 
-Now Laravel knows where to migrate the files. I migrated them using the command: `php artisan migrate` and this will create create empty tables in the database. If I found out that there was something I missed in the migrations or an error then I fix it. I can execute: `php artisan migrate:refresh`. This will rollback all existing migrations and migrate again.
+Now Laravel knows where to migrate the files. I migrated them using the command: `php artisan migrate` and this will create empty tables in the database as well as a migrations table to keep a record of all the migrations that laravel has executed. If I found out that there was something I missed in the migrations or an error then I fix it. I can execute: `php artisan migrate:refresh`. This will rollback all existing migrations and migrate again.
 <br>
-Now there are empty tables in
+
+Now there are empty tables in database we need data to initially populate the tables.
+
+---
+
+
+### Models
+Before wI seeded the database, I needed to create the models. Models are the way laravel converts database data into PHP objects for use the application and vice-versa save into the database. Using the command: `php artisan make:model Name` where name is the name of the blank model class that is to be created for a specific table. By default the model will assume the name of its table is the plural of its name.
+<br>
+
+While migrations deal with database creation and databse constraints. Models are used to create objects and create relational queries based on the database constraints.
+<br>
+
+Below are the models for doctors, patients and visits:
+
+Doctor Model:
+```php
+
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Doctor extends Model
+{
+	protected $table = 'doctors';
+	
+    public function visits(){
+		return $this->hasMany('App\Visit');
+	}
+}
+
+```
+
+<br>
+
+Patient Model:
+```php
+
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Patient extends Model
+{
+	protected $table = 'patients';
+    
+	public function company(){
+		return $this->belongsTo('App\Company');
+	}
+	
+	public function visits(){
+		return $this->hasMany('App\Visit');
+	}
+}
+
+```
+
+<br>
+
+Visit Model:
+```php
+
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Visit extends Model
+{
+	protected $table = 'visits';
+	
+    public function patient(){
+		return $this->belongsTo('App\Patient');
+	}
+	
+	public function doctor(){
+		return $this->belongsTo('App\Doctor');
+	}
+}
+
+```
+
+
+### Seeders
+Seeders are a way to automatically seed tables with immediate data, mainly used for testing and setup purposes.
+
+To quickly duplicate blank seeder files I usde the comamnds: `php artisan make:seeder UsersTableSeeder`, `php artisan make:seeder DoctorsTableSeeder`. etc...
+<br>
+
+
 
 
 
