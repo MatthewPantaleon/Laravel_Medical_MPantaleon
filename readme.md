@@ -4,6 +4,7 @@
 ---
 
 ## Table of Contents
+1. [Laravel](#laravel)
 1. [Database](#Database)
 	* [Migrations](#migrations)
 2. [Migrations](#example2)
@@ -12,6 +13,10 @@
 5. [Tinker](#Tinker)
 
 ---
+
+### Laravel
+
+First thing I did was create a new laravel application. I made sure I had composer installed and made sure that the command prompt knows where composer was I typed in `composer global require laravel/installer` to get the laravel instaler. Again I made sure the command prompt knows what laravel is then I typed in `laravel new blog`. While working on different machines in the college I was not able to use laravel it self so I typed a composer comamnd that does the same thing `composer create-project --prefer-dist laravel/laravel NAME`. NAME is the name of the laravel application that will be created.
 
 ### Database
 
@@ -32,7 +37,6 @@ Migrations are what laravel uses to be able to create database tables.
 I used comamnds the artisan command e.g.`php artisan make:migration create_doctors_table` to create blank migration files. I created one for each table I need. With the exception of the users table I used `php artisan make:auth` This creates all the user related migration, model, view ad controller files for user functionality. Login and register.
 
 I edited each file to have any columns I wanted it each table and added constraints to the table where it was needed. For example the visits table.
-
 
 ```php
 
@@ -72,9 +76,12 @@ class CreateVisitsTable extends Migration
 
 ```
 
-Since my tables have foriegn key constraints, the order in which the migrations or executed is very important. If I migrate the visits table first before either the codtors or patients. Laravel will return an SQL error.
+`$table` will be the value of the substring between *create_* and *_table* in the migration file name. You can speicify a custom table name by defining your own `$table` variable. e.g. `$table = 'custom_name'`.
+
 <br>
-Laravel executes the migrations based on the date order of the files. As shown here the visits table is the last file to be migrated. I didn't know it did this as I made my visits migration file first then my patients file then later changed the date on the visits migration.
+Since my tables have foriegn key constraints, the foriegn key constraints must be unsigned integers and the order in which the migrations or executed is very important. If I migrate the visits table first before either the codtors or patients. Laravel will return an SQL error. I have a similar situation for companies and patients where companies table must be created first.
+<br>
+Laravel executes the migrations based on the date order of the files. As shown here the visits table is the last file to be migrated. I didn't know it did this as I made my visits migration file before my patients file after realising this then changed the date on the visits migration.
 
 ![migration order](migrations.PNG)
 
@@ -95,7 +102,9 @@ DB_PASSWORD=
 ```
 ---
 
-Now Laravel knows where to migrate the files I migrated them using the command: 
+Now Laravel knows where to migrate the files. I migrated them using the command: `php artisan migrate` and this will create create empty tables in the database. If I found out that there was something I missed in the migrations or an error then I fix it. I can execute: `php artisan migrate:refresh`. This will rollback all existing migrations and migrate again.
+<br>
+Now there are empty tables in
 
 
 
