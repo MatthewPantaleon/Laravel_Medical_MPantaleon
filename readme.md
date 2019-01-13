@@ -135,7 +135,7 @@ Now there are empty tables in database we need data to initially populate the ta
 
 
 ### Models
-Before wI seeded the database, I needed to create the models. Models are the way laravel converts database data into PHP objects for use the application and vice-versa save into the database. Using the command: `php artisan make:model Name` where name is the name of the blank model class that is to be created for a specific table. By default the model will assume the name of its table is the plural of its name.
+Before wI seeded the database, I needed to create the models. Models are the way laravel converts database data into PHP objects for use the application and vice-versa save into the database. Using the command: `php artisan make:model Name` where name is the name of the blank model class that is to be created for a specific table. By default the model will assume the name of its table is the plural of its name. If you have a different table name from the one that laravel uses by default, you can set `$table` to a custom name. I set my table name to what laravel would use to be on the safe side.
 <br>
 
 While migrations deal with database creation and databse constraints. Models are used to create objects and create relational queries based on the database constraints.
@@ -214,6 +214,10 @@ class Visit extends Model
 }
 
 ```
+<br>
+
+This allows laravel to retrieve data relative from other tables. I.e. `Patient::all()->first()->visits()` this will return all visits for the first patient in the database. `Visit::all()->last()->doctor()->name` this will return the doctor name for the last visit in the database.
+<br>
 
 
 ### Seeders
