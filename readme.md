@@ -72,6 +72,29 @@ class CreateVisitsTable extends Migration
 
 ```
 
+Since my tables have foriegn key constraints, the order in which the migrations or executed is very important. If I migrate the visits table first before either the codtors or patients. Laravel will return an SQL error.
+<br>
+Laravel executes the migrations based on the date order of the files. As shown here the visits table is the last file to be migrated. I didn't know it did this as I made my visits migration file first then my patients file then later changed the date on the visits migration.
+
+![migration order](migrations.PNG)
+
+
+#### ENV file
+
+Now that I had my migrations laravel needs to know where I'm migrating the files to, to create databae tables
+
+```javascipt
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=medical
+DB_USERNAME=root
+DB_PASSWORD=
+
+```
+
+
 
 
 
