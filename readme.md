@@ -11,7 +11,9 @@
 2. [Models](#models)
 3. [Seeders](#seeders)
 4. [Routes](#routes)
-5. [Tinker](#Tinker)
+5. [Controllers](#controllers)
+	* [Index and Show](#index-and-show)
+	* [Create and Edit](#create-and-edit)
 
 ---
 
@@ -363,10 +365,167 @@ Route::resource('/visits', 'user\VisitController', array("as" =>"user"));
 
 ```
 
-`Route::resource()` Routes to all seven default functions to which ever controller you route it to.
+`Route::resource(/BaseUrl, Controller, array("as" => prefix))` Routes to all seven default functions to which ever controller you route it to. It takes a base url to build upon more urls from it, the controller to route to and a name prefix that will be applied to all routes for this url.
 <br>
-	* Unordered sub-list.
 
+Admins have the resource route for doctors, patients and visits. As for users I manually defined index and show for doctors and patients. With this I checked whether or not it was working. I made the controllers using the comamnd: `php artisan make:controller ControllerName --resource` for resource controllers with the functions already made and `php artisan make:controller ControllerName` for blank controllers without the prebuilt fucntions.
+<br>
+
+I put the controllers in the correct file paths and made sure that the name space of the controllers are correct and made sure they can still inherit from the Controller Super Class so they still work.
+<br>
+
+I tested if the controlers were being used by returning a string confirming the routes do work.
+<br>
+
+---
+
+### Controllers
+
+At this point the controllers don't really do anything, they just print out a string to the page.
+
+#### Index and show
+I started with displaying all the doctors for both admins and users. ALl it does it return all the doctors and passes the array to the respective view. View for patients and visits are the same just with a different view path and array values. Show is nearly identical to index but it only passes one object to the respective show view.
+<br>
+I have it so that when viewing a single doctor all visits for that doctor are shown as well, I pass in patients as well so as to display the patient names for those visits so it makes sense to the user. Similar idea for patients but viists do not have to ability to be displayed as a single object.
+
+```php
+<?php
+
+public function index()
+    {
+		$doctors = Doctor::all();
+        return view('admin/doctors')->with('doctors', $doctors);
+    }
+	
+public function show($id)
+    {
+		$doctor = Doctor::findOrFail($id);
+		$visits = Visit::all();
+		$patients = Patient::all();
+		
+		return view('admin/showDoctor')->with(['doctor' => $doctor, 'visits' => $visits, 'patients' => $patients]);
+    }
+
+```
+
+<br>
+
+#### Create and Edit
+Create and Edit fucntions in the controller just returns the views for the create and edit forms for doctors, patients and visits for admins and vistis for users. Key difference being the edit form is being passed the appropriate object that is to be edited.
+
+```php
+<?php
+
+public function create()
+    {
+		return view('admin/doctors/create');
+    }
+	
+public function edit($id)
+    {
+		$doctor = Doctor::findOrFail($id);
+        return view('admin/doctors/edit')->with('doctor', $doctor);
+    }
+
+```
+
+#### Store and update
+Store and update are routed to from the create and edit view forms. This is where the request is validated and saved. If there is a validation error it go back to the view page the request originated from. Visits are the same, validate then either make a new visit object or find an existing one then save the new data to the database. Once it has finished it redirects back to the index.
+
+```php
+<?php
+
+public function store(Request $request)
+    {
+        $request->validate([
+			'name' => 'required',
+			'email' => 'required|email',
+			'postal_address' => 'required|max:6|min:6',
+			'phone_number' => 'required|regex:/[0-9]{11}/',
+			'start_date' => 'required|date',
+		]);
+		
+		$doctor = new Doctor();//makes a new doctor
+		$doctor->name = $request->input('name');
+		$doctor->email = $request->input('email');
+		$doctor->postal_address = $request->input('postal_address');
+		$doctor->phone_number = $request->input('phone_number');
+		$doctor->start_date = $request->input('start_date');
+		
+		$doctor->save();
+		
+		return redirect()->route('admin.doctors.index');
+    }
+	
+public function update(Request $request, $id)
+    {
+        $request->validate([
+			
+			'name' => 'required',
+			'email' => 'required|email',
+			'postal_address' => 'required|max:6|min:6',
+			'phone_number' => 'required|regex:/[0-9]{11}/',
+			'start_date' => 'required|date',
+		]);
+		
+		$doctor = Doctor::findOrFail($id);//finds existing doctor
+		
+		$doctor->name = $request->input('name');
+		$doctor->email = $request->input('email');
+		$doctor->postal_address = $request->input('postal_address');
+		$doctor->phone_number = $request->input('phone_number');
+		$doctor->start_date = $request->input('start_date');
+		
+		$doctor->save();
+		
+		return redirect()->route('admin.doctors.index');
+    }
+
+```
+<br>
+There is an exception for patients as its fields are only required if a checkbox has been checked. I put in custome error messages to display for the user because the default error messages does not make sense to a normal user. I am also checking if medical insurance is checked. If checked save the other fields dependant on medical insurance. if not don't bother saving them. Editing a patient is the exact same, validation is the same and saving it is the same. Only difference is finding an existing patient.
+
+```php
+<?php
+
+public function store(Request $request)
+    {
+		$request->validate([
+			'name' => 'required',
+			'email' => 'required|email|unique:patients,email',
+			'postal_address' => 'required|min:6|max:6',
+			'phone_number' => 'required|regex:/[0-9]{11}/',
+			'medical_insurance' => 'nullable|boolean',
+			'company' => 'nullable|required_if:medical_insurance,1|integer',
+			'policy_number' => 'nullable|required_if:medical_insurance,1|min:6|max:6'
+		],[
+			'medical_insurance.boolean' => 'Medical Insurance must be a valid Value.',
+			'policy_number.required_if' => 'Policy Number is required.',
+			'company.required_if' => 'Company is required.',
+			'company.integer' => 'Company must be a valid value.'
+		]);
+		
+		$patient = new Patient();// would be  $patient = Patient::findOrFail($id) for edit
+		$patient->name = $request->input('name');
+		$patient->email = $request->input('email');
+		$patient->postal_address = $request->input('postal_address');
+		$patient->phone_number = $request->input('phone_number');
+
+		//if medical insurance is checked
+		if(!empty($request->input('medical_insurance'))){
+			$patient->medical_insurance = $request->input('medical_insurance');
+			$patient->company_id = $request->input('company');
+			$patient->policy_number = $request->input('policy_number');
+		}else{
+			$patient->medical_insurance = 0;
+		}
+		
+		$patient->save();
+		
+		return redirect()->route('admin.patients.index');
+    }
+
+```
 
 
 
