@@ -43,11 +43,11 @@ class VisitController extends Controller
         $request->validate([
 			'doctor' => 'required|integer',
 			'patient' => 'required|integer',
-			'date' => 'required|date|unique:visits,date',
+			'date' => 'required|date|unique:visits,date', //Makes it so that dates for visits are unique. Not two visits can have the same date. I originally wanted to make it so that the date is would be unique only if the doctor or patient was also unique.
 			'price' => 'required|numeric',
 			'duration' => 'required|numeric',
 			'time' => 'required|date_format:"H:i"'
-		],[
+		],[//custom error messages
 			'doctor.integer' => 'Please Select a Valid Doctor.',
 			'patient.integer' => 'Please Select a Valid Patient.',
 			'time.date_format' => 'Format must be HH:MM'

@@ -17,6 +17,8 @@ class PatientController extends Controller
         $this->middleware('checkUser');
     }
 	
+	//other controller functions are not here because the user does not need them. As they can only view patietnts and a single patient.
+	
     public function index()
     {
 		$patients = Patient::all();

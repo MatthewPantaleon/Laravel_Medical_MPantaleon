@@ -25,7 +25,7 @@
 					<form method="POST" action="{{ route('admin.patients.store') }}">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-						
+						<!-- Name -->
 						<div class="form-group">
 							<label for="name">Name:</label>
 							<input type="text" name="name" value="{{ old('name') }}" class="form-control col-3">
@@ -33,7 +33,8 @@
 								<small class="error">{{ $errors->first('name') }}</small>
 							@endif
 						</div>
-							
+						
+						<!-- Email -->
 						<div class="form-group">
 							<label for="email">Email:</label>
 							<input type="text" name="email" value="{{ old('email') }}" class="form-control col-3">
@@ -42,6 +43,7 @@
 							@endif
 						</div>
 
+						<!-- Postal Address -->
 						<div class="form-group">
 							<label for="postal_address">Postal Address:</label>
 							<input type="text" name="postal_address" value="{{ old('postal_address') }}" class="form-control col-3">
@@ -50,6 +52,7 @@
 							@endif
 						</div>
 						
+						<!-- Phone number -->
 						<div class="form-group">
 							<label for="phone_number">Phone Number:</label>
 							<input type="text" name="phone_number" value="{{ old('phone_number') }}" class="form-control col-3">
@@ -59,6 +62,8 @@
 						</div>
 
 						<hr>
+						
+						<!-- Medical Insurance -->
 						<div class="form-check mb-3">
 							
 							<input id="check" type="checkbox" name="medical_insurance" value="1" {{ (old('medical_insurance') == 1) ? 'checked' : '' }} class="form-check-input">
@@ -68,6 +73,7 @@
 							@endif
 						</div>
 
+						<!-- Insurance Copmany -->
 						<div class="form-group">
 							<label for="company">Insurance Company:</label>
 								<select name="company" class="form-control col-3">
@@ -81,6 +87,7 @@
 							@endif
 						</div>
 						
+						<!-- Policy Number -->
 						<div class="form-group">
 							<label>Policy Number:</label>
 							<input type="text" name="policy_number" value="{{ old('policy_number') }}" class="form-control col-3">

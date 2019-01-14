@@ -11,12 +11,14 @@ use App\Visit;
 
 class DoctorController extends Controller
 {
-    
+    //applying middleware
 	public function __construct()
     {
         $this->middleware('checkUser');
     }
 	
+	
+	//other controller functions are not here because the user does not need them. As they can only view doctors and a single doctor.
 	
     public function index()
     {

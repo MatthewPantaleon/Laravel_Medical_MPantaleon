@@ -25,7 +25,7 @@
 					<form method="POST" action="{{ route('admin.visits.store') }}">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-						
+						<!-- Doctor -->
 						<div class="form-group">
 							<label for="doctor">Doctor:</label>
 
@@ -40,6 +40,7 @@
 							@endif
 						</div>
 						
+						<!-- Patient -->
 						<div class="form-group">
 							<label for="patient">Patient:</label>
 							<td>
@@ -54,7 +55,7 @@
 								@endif
 						</div>
 								
-								
+						<!-- Date -->
 						<div class="form-group">
 							<label for="date">Date:</label>
 							<input type="date" name="date" value="{{ old('date') }}" class="form-control col-3">
@@ -63,7 +64,7 @@
 							@endif
 						</div>
 						
-						
+						<!-- Time -->
 						<div class="form-group">
 							<label for="time">Time:</label>
 							<input type="time" name="time" value="{{ old('time') }}" class="form-control col-3">
@@ -72,6 +73,7 @@
 							@endif
 						</div>
 						
+						<!-- Duration -->
 						<div class="form-group">
 							<label for="duration">Duration:</label>
 							<input type="text" name="duration" value="{{ old('duration') }}" class="form-control col-3">
@@ -80,6 +82,7 @@
 							@endif
 						</div>
 						
+						<!-- Price -->
 						<div class="form-group">
 							<div class="input-group">
 								<div class="input-group-prepend">

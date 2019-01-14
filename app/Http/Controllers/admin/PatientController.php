@@ -12,7 +12,7 @@ use App\Visit;
 
 class PatientController extends Controller
 {
-    
+    //applying middleware
 	public function __construct()
     {
         $this->middleware('checkAdmin');
@@ -45,11 +45,12 @@ class PatientController extends Controller
 			'name' => 'required',
 			'email' => 'required|email|unique:patients,email',
 			'postal_address' => 'required|min:6|max:6',
-			'phone_number' => 'required|regex:/[0-9]{11}/',
+			'phone_number' => 'required|regex:/[0-9]{11}/', // regex digits only and at 11 characters long. no more, no less
 			'medical_insurance' => 'nullable|boolean',
+			//required if medical_insurance request value is one.
 			'company' => 'nullable|required_if:medical_insurance,1|integer',
 			'policy_number' => 'nullable|required_if:medical_insurance,1|min:6|max:6'
-		],[
+		],[//custom error messages for a specific property
 			'medical_insurance.boolean' => 'Medical Insurance must be a valid Value.',
 			'policy_number.required_if' => 'Policy Number is required.',
 			'company.required_if' => 'Company is required.',
@@ -62,7 +63,7 @@ class PatientController extends Controller
 		$patient->postal_address = $request->input('postal_address');
 		$patient->phone_number = $request->input('phone_number');
 
-		
+		//if medical insurance is checked, save the dependant values into the patient object, else ignore them as those values defaults to null
 		if(!empty($request->input('medical_insurance'))){
 			$patient->medical_insurance = $request->input('medical_insurance');
 			$patient->company_id = $request->input('company');
@@ -121,7 +122,7 @@ class PatientController extends Controller
 		$patient->postal_address = $request->input('postal_address');
 		$patient->phone_number = $request->input('phone_number');
 
-		
+		//if statement similar to create except that the dependant values are set to null directly. So if a patient had values for those they are now gone.
 		if(!empty($request->input('medical_insurance'))){
 			$patient->medical_insurance = $request->input('medical_insurance');
 			$patient->company_id = $request->input('company');

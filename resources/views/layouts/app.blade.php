@@ -61,7 +61,7 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-									<a class="dropdown-item" href="{{ url('/home') }}">Home</a>
+									<a class="dropdown-item" href="{{ url('/home') }}">Home</a> <!-- I added a home button to the dropdown for logged in users -->
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
@@ -90,7 +90,7 @@
 				
 				var url = $(this)["0"].baseURI;//gets the url of the delete form
 				
-				//checks agains the url to dislpay the correct type of object to be deleted
+				//checks against the url to dislpay the correct type of object to be deleted
 				if(url.indexOf("patients") > 0){
 					item = "Patient";
 				}else if(url.indexOf("doctors") > 0){

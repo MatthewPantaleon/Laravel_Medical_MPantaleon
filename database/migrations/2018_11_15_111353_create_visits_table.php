@@ -19,6 +19,8 @@ class CreateVisitsTable extends Migration
 			$table->double('price', 15, 2);
             $table->timestamps();
 			
+			
+			//foreign key constraints on doctors and patients
 			$table->foreign('doctor_id')->references('id')->on('doctors');
 			$table->foreign('patient_id')->references('id')->on('patients');
         });

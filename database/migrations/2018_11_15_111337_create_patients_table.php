@@ -24,6 +24,7 @@ class CreatePatientsTable extends Migration
 			$table->string('policy_number')->nullable();
             $table->timestamps();
 			
+			
 			$table->foreign('company_id')->references('id')->on('companies');
         });
     }
